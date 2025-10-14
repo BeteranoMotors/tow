@@ -1,0 +1,22 @@
+{
+  "name": "beterano-web-tow",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.app.config.js",
+    "build:app": "vite build --config vite.app.config.js",
+    "build:mf": "vite build --config vite.microfront.config.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.2",
+    "vite": "^5.4.8"
+  }
+}
