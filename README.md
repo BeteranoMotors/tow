@@ -133,3 +133,26 @@ beterano-web-tow/
 
 ## Licencia
 MIT (ajusta según tus necesidades)
+
+
+---
+
+## Flujo de repos privado/público
+
+- Desarrollo en **privado**: `BeteranoCode/beterano-web-tow` (este repo).
+- Publicación estática en **público**: `BeteranoMotors/tow`
+  - Activar **GitHub Pages** con fuente `main` y carpeta `/docs`.
+  - Ejecutar desde el repo privado:
+    ```bash
+    ./devops/deploy_public.sh
+    git add docs
+    git commit -m "chore: publish tow microfrontend to docs/ for GH Pages"
+    git push
+    ```
+  - Si usas **dos remotos** (origin=privado, public=github.com/BeteranoMotors/tow.git):
+    ```bash
+    git remote add public https://github.com/BeteranoMotors/tow.git
+    git push public main
+    ```
+
+> El app-shell (`beterano-web-map`) puede consumir directamente `https://beteranomotors.github.io/tow/btr-tow.js` y montar la app con `window.BTR_Tow.mount(...)`.
