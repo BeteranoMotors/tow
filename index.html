@@ -1,115 +1,30 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <title>BETERANO Tow</title>
+<!-- 1) (opcional) fuerza redirección dura en este proyecto -->
+<script>window.BTR_FORCE_HARD_NAV = true;</script>
 
-    <!-- ✨ Estilos del chrome (header + dock) publicados en /chrome -->
-    <link
-      rel="stylesheet"
-      href="https://beteranomotors.github.io/chrome/components/header/header.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://beteranomotors.github.io/chrome/components/dock/dock.css"
-    />
+<!-- 2) CSS del chrome -->
+<link rel="stylesheet" href="https://beteranomotors.github.io/chrome/components/header/header.css">
+<link rel="stylesheet" href="https://beteranomotors.github.io/chrome/components/dock/dock.css">
 
-    <!-- 🎨 Ajustes mínimos de layout para esta página standalone -->
-    <style>
-      :root {
-        /* fallback por si el loader aún no calculó la altura del header */
-        --header-offset: 85px;
-      }
-      html, body { height: 100%; }
-      body { margin: 0; background: #0f0f0f; color: #eee; }
+<!-- ... tu markup ... -->
+<div id="btr-header-host"></div>
+<div class="layout-container">
+  <div class="sidebar__top">
+    <div id="bm-dock-root" class="inline-dock"></div>
+  </div>
+  <main class="app-main">
+    <div id="app-root"></div>
+  </main>
+</div>
 
-      /* El contenido bajo el header ocupa toda la altura disponible */
-      .page-wrapper{
-        min-height: calc(100dvh - var(--header-offset, 0px));
-        height: calc(100dvh - var(--header-offset, 0px));
-        display: grid;
-        grid-template-rows: auto 1fr;
-        overflow: hidden;
-      }
+<!-- 3) Loaders del chrome -->
+<script src="https://beteranomotors.github.io/chrome/components/header/header-loader.js" defer></script>
+<script src="https://beteranomotors.github.io/chrome/components/dock/dock-loader.js" defer></script>
 
-      /* Contenedor blanco del dock inline (similar a map) */
-      .sidebar__top{
-        background: #fff;
-        border-radius: 18px;
-        padding: 12px 14px 8px;
-        margin: 8px auto 0;
-        box-shadow: none;
-        overflow: visible;
-        max-width: 1100px;
-      }
-
-      /* Hacemos que el dock sea inline dentro del panel blanco */
-      .inline-dock { /* marcador para el init del dock */ }
-
-      /* Zona de la app Tow */
-      .app-main{
-        min-height: 0;  /* permite que el hijo crezca con overflow */
-        overflow: auto;
-        background: #0f0f0f;
-      }
-      /* Tu app ocupa todo el alto restante */
-      #root{
-        min-height: 100%;
-        box-sizing: border-box;
-        padding: 16px;
-      }
-
-      /* Si quieres que el fondo sea claro, cambia el body/app-main */
-      /* body, .app-main { background:#fafafa; color:#111; } */
-    </style>
-  </head>
-  <body>
-    <!-- 🧱 Host del header remoto -->
-    <div id="btr-header-host"></div>
-
-    <!-- 🧭 Dock inline + App -->
-    <div class="page-wrapper">
-      <div class="sidebar__top">
-        <!-- El loader del dock inyecta aquí el <nav> -->
-        <div id="bm-dock-root" class="inline-dock"></div>
-      </div>
-
-      <main class="app-main">
-        <!-- Tu aplicación Tow (React) -->
-        <div id="root"></div>
-      </main>
-    </div>
-
-    <!-- 🧩 Loaders del chrome (montan header + dock) -->
-    <script
-      src="https://beteranomotors.github.io/chrome/components/header/header-loader.js"
-      defer
-    ></script>
-    <script
-      src="https://beteranomotors.github.io/chrome/components/dock/dock-loader.js"
-      defer
-    ></script>
-
-    <!-- 🔧 Montaje de header + dock y tu app Tow -->
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        // Montar header (calcula --header-offset automáticamente)
-        if (window.BeteranoHeader && document.getElementById('btr-header-host')) {
-          window.BeteranoHeader.mount(document.getElementById('btr-header-host'));
-        }
-
-        // Montar dock en modo inline
-        if (window.BeteranoDock && document.getElementById('bm-dock-root')) {
-          window.BeteranoDock.init(document.getElementById('bm-dock-root'));
-        }
-      });
-    </script>
-
-    <!-- 🚀 Tu bundle (React) -->
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Monta header (si lo usas)
+    window.BeteranoHeader && BeteranoHeader.mount(document.getElementById('btr-header-host'));
+    // Monta dock inline
+    window.BeteranoDock && BeteranoDock.init(document.getElementById('bm-dock-root'));
+  });
+</script>
