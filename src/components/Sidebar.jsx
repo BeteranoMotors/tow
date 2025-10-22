@@ -1,6 +1,6 @@
 // beterano-web-tow/src/components/Sidebar.jsx
 import React, { useState } from "react";
-import SidebarTop from "@/components/SidebarTop"; // mismo componente (solo dock)
+import SidebarTop from "./SidebarTop.jsx"; // o "./SidebarTop"
 
 export default function SidebarTow() {
   const [from, setFrom] = useState("");
