@@ -1,26 +1,27 @@
 // vite.microfront.config.js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     emptyOutDir: false,
     lib: {
-      entry: 'src/microfront/index.js',
-      name: 'BTR_Tow',
-      formats: ['iife'],
-      fileName: () => `btr-tow.js`
+      // ⇨ entrada en .jsx para compilar JSX sin fricción
+      entry: "src/microfront/index.jsx",
+      name: "BTR_Tow",
+      formats: ["iife"],             // bundle único para <script src="./btr-tow.js">
+      fileName: () => "btr-tow.js",
     },
     rollupOptions: {
-      output: { inlineDynamicImports: true }
+      output: { inlineDynamicImports: true },
     },
-    sourcemap: true
+    sourcemap: true,
   },
   // evita 'process is not defined' en el browser
   define: {
-    'process.env.NODE_ENV': '"production"',
-    'process.env': {}  // salvaguarda extra
-  }
-})
+    "process.env.NODE_ENV": '"production"',
+    "process.env": {},
+  },
+});

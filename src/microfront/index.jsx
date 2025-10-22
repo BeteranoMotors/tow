@@ -1,4 +1,4 @@
-// src/microforont/index.js
+// src/microfront/index.jsx
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "../App.jsx";
@@ -11,7 +11,7 @@ function doRender({ targetId = "tow-container", view = "quote", props = {} } = {
   const el = document.getElementById(targetId);
   if (!el) return false;
 
-  // Evita doble-montajes
+  // Evita doble montajes en el mismo contenedor
   if (_root && _container === el) return true;
 
   _container = el;
@@ -25,7 +25,6 @@ function doRender({ targetId = "tow-container", view = "quote", props = {} } = {
  * Si el target aún no existe (por orden de carga), reintenta brevemente.
  */
 function mount({ targetId = "tow-container", view = "quote", props = {} } = {}) {
-  // Si ya estaba montado en el mismo contenedor, rehúsa
   if (_root && _container && _container.id === targetId) return;
 
   if (doRender({ targetId, view, props })) return;
