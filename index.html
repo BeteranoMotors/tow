@@ -16,29 +16,19 @@
 
     /* Contenedor general */
     .layout-container{ max-width: 1100px; margin: 0 auto; padding: 16px; }
-    /* Franja blanca arriba (si quieres dock inline) */
-    .sidebar__top{ background:#fff; border-radius:16px; padding:10px 14px; margin:12px 0 16px; }
   </style>
 </head>
-<body class="has-mobile-dock">
-  <!-- Aquí se inyecta el header remoto -->
-  <div id="bm-header-host"></div>
+<body>
+  <!-- Aquí se inyecta el header remoto (ID requerido por header-loader) -->
+  <div id="header-container"></div>
 
   <div id="app-host" class="layout-container">
-    <!-- Dock inline opcional dentro de una franja blanca -->
-    <div class="sidebar__top">
-      <div id="bm-dock-host" class="inline-dock"></div>
-    </div>
-
     <!-- Contenido de Tow -->
     <div id="tow-container"></div>
   </div>
 
-  <!-- Loaders del chrome (header + dock) -->
-  <script defer src="https://beteranomotors.github.io/chrome/components/header/header-loader.js"
-          data-target="#bm-header-host"></script>
-  <script defer src="https://beteranomotors.github.io/chrome/components/dock/dock-loader.js"
-          data-target="#bm-dock-host"></script>
+  <!-- Loader del header global -->
+  <script defer src="https://beteranomotors.github.io/chrome/components/header/header-loader.js"></script>
 
   <!-- Bundle del microfrontend Tow -->
   <script src="./btr-tow.js"></script>
