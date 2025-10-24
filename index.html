@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BETERANO Tow</title>
+
+  <!-- Estilos propios de Tow (el deploy genera style.css si existe) -->
+  <link rel="stylesheet" href="./style.css" />
+
+  <style>
+    :root{ --header-offset: 86px; }
+    html,body{ margin:0; padding:0; background:#0f0f0f; color:#eee; font-family:system-ui; }
+    /* Reservar hueco bajo el header inyectado */
+    body.header-loaded #app-host{ padding-top: var(--header-offset, 86px); }
+
+    /* Contenedor general */
+    .layout-container{ max-width: 1100px; margin: 0 auto; padding: 16px; }
+  </style>
+</head>
+<body>
+  <!-- Aquí se inyecta el header remoto (ID requerido por header-loader) -->
+  <div id="header-container"></div>
+
+  <div id="app-host" class="layout-container">
+    <!-- Contenido de Tow -->
+    <div id="tow-container"></div>
+  </div>
+
+  <!-- Loader del header global -->
+  <script defer src="https://beteranomotors.github.io/chrome/components/header/header-loader.js"></script>
+
+  <!-- Bundle del microfrontend Tow -->
+  <script src="./btr-tow.js"></script>
+  <script>
+    // Montaje robusto: espera a que BTR_Tow esté disponible
+    (function mountTow(){
+      function tryMount(){
+        if (window.BTR_Tow && typeof window.BTR_Tow.mount === 'function'){
+          window.BTR_Tow.mount({
+            targetId: 'tow-container',
+            view: 'quote',
+            props: { osrmUrl: 'https://router.project-osrm.org/route/v1', currency: 'CHF' }
+          });
+          return true;
+        }
+        return false;
+      }
+      if (!tryMount()){
+        const t = setInterval(() => { if (tryMount()) clearInterval(t); }, 50);
+        setTimeout(() => clearInterval(t), 8000);
+      }
+    })();
+  </script>
+</body>
+</html>
